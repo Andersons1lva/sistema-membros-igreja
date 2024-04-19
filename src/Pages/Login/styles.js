@@ -8,6 +8,18 @@ export const Container = styled.div`
     height: 100vh;
     min-width: 100vw; 
 
+    h1 {
+            color: #636e72;
+            font-size: 4vw;
+            margin-left: 20px;
+            font-weight: normal;
+            font-family:Trattatello, fantasy;
+            position:absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);        
+        }
+
 `
 export const ImageSection = styled.div`    
     position:relative;
@@ -15,19 +27,22 @@ export const ImageSection = styled.div`
     background-image: url(${backgroundImage});
     background-size: contain; /* Cobrir todo o elemento */
     background-position: right; /* Centralizar a imagem */
+    background-position:absolute;
     background-repeat: no-repeat; /* Evita repetir a imagem */  
 
-    h1 {
-        color: #636e72;
-        font-size: 5rem;
-        margin-left: 20px;
-        font-weight: normal;
-        font-family:Trattatello, fantasy;
-        position:absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);        
-    }
+    
+        h1 {
+            color: #636e72;
+            font-size: 4vw;
+            margin-left: 20px;
+            font-weight: normal;
+            font-family:Trattatello, fantasy;
+            position:absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);        
+        }
+    
 `
 
 export const Form = styled.form`
@@ -47,6 +62,7 @@ export const Form = styled.form`
         font-size: 20px;
         font-weight: light;
     }
+    
 
     p {
         color: white;
@@ -61,9 +77,22 @@ export const Form = styled.form`
 
 `
 
-export const SubContainerSing = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 0px 20px;
-    align-items: center;
+export const SubContainerSign = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0px 20px;
+  align-items: center;
+
+  p {
+    color: #808080;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  a {
+    color: #808080;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration:none;
+  }
 `
