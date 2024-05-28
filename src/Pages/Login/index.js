@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Container, Form, ImageSection, SubContainerSign  } from "./styles"
+import { Container, Form, SubContainerSign  } from "./styles"
 import Input from "../../Components/input/index"
 import Botao from "../../Components/Botao/index"
 import { validarEmail, validarSenha } from "../../Utils/validadores"
@@ -18,7 +18,8 @@ const Login = () => {
         event.preventDefault();
         try {
             setLoading(true)
-            const response = await userService.login(form)
+            console.log('Formulário enviado:', form); // Adicionando este log
+            const response = await userService.login(form)            
             console.log('response do Login', response)
             if (response === true) {
                 alert('usuário Logado com Sucesso')
@@ -32,18 +33,17 @@ const Login = () => {
     }
 
     const handleChange = (event) => {
-       setFrom({ ...form, [event.target.name]: event.target.value })
+        const{name, value} = event.target;
+       setFrom({ ...form, [name]: value })
     }
     const validadorInput = () => {
         return validarEmail(form.email) && validarSenha(form.password)
     }
 
     return (
-        <Container>
-            <h1>Sistema<br />Gerenciamento<br /> de Membros</h1>
-            <ImageSection/>
+        <Container>            
             <Form>
-                <img src={Logo} style={{ width: '195px', height: '250px' }} />
+                <img src={Logo} alt="Logotipo da minha empresa" style={{ width: '195px', height: '250px' }} />
                 <Input
                     name='email'
                     placeholder='Digite o seu e-mail'

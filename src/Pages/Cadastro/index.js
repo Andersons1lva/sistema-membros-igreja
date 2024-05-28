@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Container, Form, SubContainerSign } from './styles'
 import Input from '../../Components/input/index'
 import Botao from '../../Components/Botao/index'
-import { validarEmail, validarSenha, validarNome, validarConfirmarSenha } from '../../Utils/validadores'
+import { validarEmail, validarSenha, validarConfirmarSenha } from '../../Utils/validadores'
 import UserService from '../../Services/UserService'
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -18,18 +18,31 @@ const Cadastro = () => {
     try {
       setLoading(true)
       const { data } = await userService.cadastrar({
-        nome: form.nome,
         email: form.email,
         password: form.password,
+        role:"USER"
       })
       if (data) {
-        const responseLogin = await userService.login({
-          email: form.email,
-          password: form.password
-        })
-        if (responseLogin === true) {
-          alert('usuário Cadastrado com Sucesso')
-          navigate('/home')
+        try {
+          // Tenta fazer o login com os dados cadastrados
+          const responseLogin = await userService.login({
+            email: form.email,
+            password: form.password
+          });
+      
+          // Verifica se o login foi bem-sucedido
+          if (responseLogin) {
+            // Se sim, exibe um alerta de sucesso
+            alert('Usuário cadastrado e logado com sucesso!');
+            // E navega para a página inicial
+            navigate('/home');
+          } else {
+            // Se o login não foi bem-sucedido, exibe uma mensagem de erro
+            alert('Erro ao fazer login após o cadastro');
+          }
+        } catch (error) {
+          // Se ocorrer um erro ao fazer login, exibe uma mensagem de erro
+          alert('Erro ao fazer login após o cadastro: ' + error);
         }
     }
       setLoading(false)
@@ -47,20 +60,12 @@ const Cadastro = () => {
     return validarEmail(form.email) 
     && validarSenha(form.password)
     && validarConfirmarSenha(form.password, form.confirmarPassword)
-    && validarNome(form.nome)
   }
 
   return (
     <Container>
       <Form>
-        <h1>Faça o seu Cadastro</h1>
-        <Input
-          name='nome'
-          placeholder='Digite o seu nome'
-          onChange={handleChange}
-          type='text'
-        />
-        
+        <h1>Faça o seu Cadastro</h1>        
         <Input
           name='email'
           placeholder='Digite o seu e-mail'
@@ -71,7 +76,7 @@ const Cadastro = () => {
           name='password'
           placeholder='Digite a sua senha'
           onChange={handleChange}
-          type='password'
+          type={form.showPassword ? 'text' : 'password'} // Usando form.showPassword para mostrar ou ocultar a senha
         />
         <Input
           name='confirmarPassword'
